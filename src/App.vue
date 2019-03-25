@@ -1,6 +1,6 @@
 <template>
   <div class="app-body">
-    <mt-header fixed title="千百撸"></mt-header>
+    <mt-header fixed title="汽车之家"></mt-header>
     <div class="app-container">
       <router-view></router-view>
     </div>
