@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/home/Home'
-import Found from '@/components/found/Found'
-import ShopCar from '@/components/shopCar/ShopCar'
-import User from '@/components/user/User'
+import Home from '@/components/Home/Home'
+import Found from '@/components/Found/Found'
+import ShopCar from '@/components/ShopCar/ShopCar'
+import User from '@/components/User/User'
+import News from '@/components/Home/News'
 
 Vue.use(Router)
 
@@ -11,27 +12,49 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: {
+        name: 'home'
+      }
     },
     {
       path: '/home',
       name: 'home',
-      component: Home
+      component: Home,
+      meta: {
+        title: '汽车之家'
+      }
     },
     {
       path: '/found',
       name: 'found',
-      component: Found
+      component: Found,
+      meta: {
+        title: '汽车之家'
+      }
     },
     {
       path: '/shopCar',
       name: 'shopCar',
-      component: ShopCar
+      component: ShopCar,
+      meta: {
+        title: '汽车之家'
+      }
     },
     {
       path: '/user',
       name: 'user',
-      component: User
+      component: User,
+      meta: {
+        title: '汽车之家'
+      }
+    },
+    {
+      path: '/home/news',
+      name: 'home.news',
+      component: News,
+      meta: {
+        title: '汽车资讯'
+      }
     }
   ]
 })

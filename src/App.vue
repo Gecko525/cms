@@ -1,6 +1,11 @@
 <template>
   <div class="app-body">
-    <mt-header fixed title="汽车之家"></mt-header>
+    <mt-header fixed :title="appTitle">
+      <router-link :to="{name: selected}" slot="left" v-if="isSubPage">
+        <mt-button icon="back">返回</mt-button>
+      </router-link>
+      <mt-button icon="more" slot="right" v-if="isSubPage"></mt-button>
+    </mt-header>
     <div class="app-container">
       <router-view></router-view>
     </div>
@@ -30,16 +35,26 @@ export default {
   data () {
     return {
       name: 'app',
-      selected: 'home'
+      selected: 'home',
+      appTitle: '',
+      isSubPage: false
     }
   },
-  computed: {
+  created () {
+    this.selected = this.$router.currentRoute.name.split('.')[0]
+    this.isSubPage = this.selected !== this.$router.currentRoute.name
+    this.appTitle = this.$route.meta.title
   },
   watch: {
     selected (newV, oldV) {
       this.$router.push({
         name: newV
       })
+    },
+    $route (newV, oldV) {
+      this.selected = newV.name.split('.')[0]
+      this.isSubPage = this.selected !== newV.name
+      this.appTitle = newV.meta.title
     }
   }
 }
@@ -51,8 +66,8 @@ export default {
   }
   .app-container {
     padding-top: 40px;
+    padding-bottom: 55px;
     height: 100%;
     overflow: scroll;
-    background: #f00;
   }
 </style>
