@@ -15,3 +15,11 @@ html,body {
 .fa {
   font-size: 24px;
 }
+
+/* 懒加载图片 */
+.lazy-image[lazy=loading] {
+  width: 40px !important;
+  height: 100% !important;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}

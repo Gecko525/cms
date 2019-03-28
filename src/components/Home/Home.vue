@@ -2,7 +2,7 @@
   <div>
     <mt-swipe :auto="4000">
       <mt-swipe-item v-for="(image, index) of swipeImgs" :key="index">
-        <img v-lazy="image" alt="豪车" class="swipe-image">
+        <img v-lazy="image" alt="豪车" class="swipe-image lazy-image">
       </mt-swipe-item>
     </mt-swipe>
     <div>
@@ -29,9 +29,9 @@ export default {
           text: '汽车资讯'
         },
         {
-          link: 'home.news',
+          link: 'home.carPhoto',
           image: 'car2',
-          text: '汽车资讯'
+          text: '豪车图鉴'
         },
         {
           link: 'home.news',
@@ -85,14 +85,8 @@ export default {
   }
   .swipe-image {
     width: 100%;
-    height: 175px;
-  }
-  .swipe-image[lazy=loading] {
-    width: 40px;
-    height: 175px;
     background: #ccc;
-    margin-left: 50%;
-    transform: translateX(-50%);
+    height: 175px;
   }
   .box-img {
     width: 48px;

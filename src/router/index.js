@@ -5,6 +5,7 @@ import Found from '@/components/Found/Found'
 import ShopCar from '@/components/ShopCar/ShopCar'
 import User from '@/components/User/User'
 import News from '@/components/Home/News'
+import CarPhoto from '@/components/Home/CarPhoto'
 
 Vue.use(Router)
 
@@ -54,6 +55,14 @@ export default new Router({
       component: News,
       meta: {
         title: '汽车资讯'
+      }
+    },
+    {
+      path: '/home/carPhoto',
+      name: 'home.carPhoto',
+      component: CarPhoto,
+      meta: {
+        title: '豪车图鉴'
       }
     }
   ]
