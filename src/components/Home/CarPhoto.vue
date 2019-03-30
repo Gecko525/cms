@@ -1,12 +1,24 @@
 <template>
   <div>
-    <ul>
-      <li v-for="car of carPhotos" :key="car.id">
-        <img v-lazy="car.image" alt="豪车图鉴" class="car-img lazy-image">
-        <p class="car-desc">{{car.desc}}</p>
-      </li>
-    </ul>
-    <page-bottom></page-bottom>
+    <div class="labels">
+      <ul >
+        <li v-for="item of labels" :key="item.id"
+            :class="{'isActive': item.id === $route.params.labelId}">
+          <router-link :to="{name: 'home.carPhoto', params: {labelId: item.id}}">
+            {{item.label}}
+          </router-link>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <div v-if="carPhotos && carPhotos.length > 0">
+        <view-picture :slides="carPhotos"></view-picture>
+        <page-bottom></page-bottom>
+      </div>
+      <div v-else>
+        <p class="no-content">没有内容哦～</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -14,41 +26,98 @@
 export default {
   data () {
     return {
-      carPhotos: []
+      carPhotos: [],
+      labels: [
+        {
+          id: '0',
+          label: '所有'
+        },
+        {
+          id: '1',
+          label: '法拉利'
+        },
+        {
+          id: '2',
+          label: '保时捷'
+        },
+        {
+          id: '3',
+          label: '宾利'
+        },
+        {
+          id: '4',
+          label: '路虎'
+        },
+        {
+          id: '5',
+          label: '玛莎拉蒂'
+        },
+        {
+          id: '6',
+          label: '巴拉巴拉'
+        }
+      ]
     }
   },
-  created () {
-    this.$axios.get('getCarPhotos').then((res) => {
-      this.carPhotos = res.data.data.map((car) => {
-        car.desc = car.desc.length > 50 ? car.desc.substring(0, 50).concat('...') : car.desc
-        return car
+  methods: {
+    getPhotosByLabel (id) {
+      this.$axios.get('getCarPhotos', {params: {id}}).then((res) => {
+        this.carPhotos = res.data.map((car) => {
+          car.desc = car.desc.length > 50 ? car.desc.substring(0, 50).concat('...') : car.desc
+          // return {
+          //   src: car.image,
+          //   msrc: car.image,
+          //   title: car.desc,
+          //   alt: '222',
+          //   w: '300',
+          //   h: '200'
+          // }
+          return car
+        })
       })
-    })
+    }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.getPhotosByLabel(to.params.labelId)
+    next()
+  },
+  created () {
+    this.getPhotosByLabel(this.$route.params.labelId)
   }
 }
 </script>
 
 <style scoped>
-  li {
-    position: relative;
-    background: #ccc;
+  .labels {
+    height: 50px;
+    padding: 5px;
+    overflow-x: scroll;
   }
-  .car-img {
-    width: 100%;
-    height: auto;
+  .labels ul {
+    width: 1000%;
   }
-  .car-desc {
-    position: absolute;
-    width: 100%;
-    bottom: 5px;
-    clear: both;
-    overflow: hidden;
-    max-height: 50px;
-    background: rgba(0,0,0,0.3);
-    color: #ddd;
+  .labels li {
+    float: left;
+    padding: 5px 10px;
+    color: #267fae;
+  }
+  .labels li:last-child {
+    margin-right: 5px;
+  }
+  .labels li a:visited {
+    color: #267fae;
+  }
+  .labels li.isActive {
+    background: #ef5371;
+    border-radius: 3px;
+  }
+  .labels li.isActive a{
+    color: #fff;
+  }
+  .no-content {
+    color: #ccc;
     font-size: 14px;
-  }
-  .lazy-image[lazy="loading"] {
-    height: 300px !important;
+    text-align: center;
+    margin-top: 50%;
   }
 </style>

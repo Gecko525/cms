@@ -12,14 +12,18 @@ import '@/assets/css/global.css'
 // 引入自己的ul和li组件
 import BoxUL from '@/components/Common/BoxUL'
 import BoxLI from '@/components/Common/BoxLI'
-
+// picViewer
+import ViewPicture from '@/components/Common/ViewPicture'
 // 页底
 import PageBottom from '@/components/Common/PageBottom'
+// 评论组件
+import Review from '@/components/Common/Review'
 
 Vue.component(BoxUL.name, BoxUL)
 Vue.component(BoxLI.name, BoxLI)
-
+Vue.component(ViewPicture.name, ViewPicture)
 Vue.component(PageBottom.name, PageBottom)
+Vue.component(Review.name, Review)
 
 Vue.config.productionTip = false
 Axios.defaults.baseURL = 'http://127.0.0.1:8081/api/'

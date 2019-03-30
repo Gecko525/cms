@@ -1,12 +1,12 @@
 <template>
   <div>
     <ul>
-      <li v-for="(news, index) of newsList" :key="index">
-        <img :src="news.image" alt="新闻图片" class="news-pic">
-        <div class="news-text">
-          <p class="news-title">{{news.title}}</p>
-          <p class="news-subTitle">{{news.subTitle}}</p>
-        </div>
+      <li v-for="(news, index) of newsList" :key="index" @click="viewDetail">
+          <img :src="news.image" alt="新闻图片" class="news-pic">
+          <div class="news-text">
+            <p class="news-title">{{news.title}}</p>
+            <p class="news-subTitle">{{news.subTitle}}</p>
+          </div>
       </li>
     </ul>
     <page-bottom></page-bottom>
@@ -20,9 +20,14 @@ export default {
       newsList: []
     }
   },
+  methods: {
+    viewDetail() {
+      this.$router.push({name: 'home.news.detail'});
+    }
+  },
   created () {
     this.$axios.get('getNewsList').then((res) => {
-      this.newsList = res.data
+      this.newsList = res.data;
     })
   }
 }

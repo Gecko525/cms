@@ -8,7 +8,7 @@
     <div>
       <box-ul>
         <box-li v-for="(block, index) of quickBlocks" :key="index">
-          <router-link :to="{name: block.link}">
+          <router-link :to="{name: block.link, params: block.params}">
             <img :src="block.image" :alt="block.text" class="box-img">
             <p class="box-text">{{block.text}}</p>
           </router-link>
@@ -31,7 +31,8 @@ export default {
         {
           link: 'home.carPhoto',
           image: 'car2',
-          text: '豪车图鉴'
+          text: '豪车图鉴',
+          params: {labelId: '0'}
         },
         {
           link: 'home.news',

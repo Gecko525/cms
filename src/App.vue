@@ -1,7 +1,7 @@
 <template>
   <div class="app-body">
     <mt-header fixed :title="appTitle">
-      <router-link :to="{name: selected}" slot="left" v-if="isSubPage">
+      <router-link :to="{name: lastRoute}" slot="left" v-if="isSubPage">
         <mt-button icon="back">返回</mt-button>
       </router-link>
       <mt-button icon="more" slot="right" v-if="isSubPage"></mt-button>
@@ -37,13 +37,21 @@ export default {
       name: 'app',
       selected: 'home',
       appTitle: '',
-      isSubPage: false
+      isSubPage: false,
+      lastRoute: ''
+    }
+  },
+  methods: {
+    routeChange (route) {
+      const routeName = route.name;
+      this.lastRoute = routeName.includes('.') ? routeName.substring(0, routeName.lastIndexOf('.')) : routeName;
+      this.selected = routeName.split('.')[0];
+      this.isSubPage = this.selected !== routeName;
+      this.appTitle = route.meta.title;
     }
   },
   created () {
-    this.selected = this.$router.currentRoute.name.split('.')[0]
-    this.isSubPage = this.selected !== this.$router.currentRoute.name
-    this.appTitle = this.$route.meta.title
+    this.routeChange(this.$router.currentRoute);
   },
   watch: {
     selected (newV, oldV) {
@@ -52,9 +60,7 @@ export default {
       })
     },
     $route (newV, oldV) {
-      this.selected = newV.name.split('.')[0]
-      this.isSubPage = this.selected !== newV.name
-      this.appTitle = newV.meta.title
+      this.routeChange(newV);
     }
   }
 }
