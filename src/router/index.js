@@ -7,6 +7,7 @@ import User from '@/components/User/User'
 import News from '@/components/Home/News'
 import NewsDetail from '@/components/Home/NewsDetail'
 import CarPhoto from '@/components/Home/CarPhoto'
+import GoodsList from '@/components/Home/GoodsList'
 
 Vue.use(Router)
 
@@ -72,6 +73,14 @@ export default new Router({
       component: CarPhoto,
       meta: {
         title: '豪车图鉴'
+      }
+    },
+    {
+      path: '/home/goods',
+      name: 'home.goods',
+      component: GoodsList,
+      meta: {
+        title: '汽车商城'
       }
     }
   ]

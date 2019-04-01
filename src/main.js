@@ -25,6 +25,19 @@ Vue.component(ViewPicture.name, ViewPicture)
 Vue.component(PageBottom.name, PageBottom)
 Vue.component(Review.name, Review)
 
+// 配置拦截器在加载时显示loading
+Axios.interceptors.request.use(function (config) {
+  MiniUI.Indicator.open({
+    text: "玩命加载中~"
+  });
+  return config;
+});
+Axios.interceptors.response.use(function (response) {
+  // response.config
+  MiniUI.Indicator.close();
+  return response;
+});
+
 Vue.config.productionTip = false
 Axios.defaults.baseURL = 'http://127.0.0.1:8081/api/'
 Vue.prototype.$axios = Axios

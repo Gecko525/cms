@@ -35,9 +35,9 @@ export default {
           params: {labelId: '0'}
         },
         {
-          link: 'home.news',
+          link: 'home.goods',
           image: 'car3',
-          text: '汽车资讯'
+          text: '汽车商城'
         },
         {
           link: 'home.news',
