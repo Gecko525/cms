@@ -6,7 +6,7 @@
     <div v-html="news.content"></div>
     <hr>
     <div>
-      <v-review :reviews="reviewList"></v-review>
+      <v-review :id="newsId"></v-review>
     </div>
     <page-bottom></page-bottom>
   </div>
@@ -16,15 +16,14 @@
   export default {
     data () {
       return {
-        news: {},
-        reviewList: []
+        newsId: '',
+        news: {}
       }
     },
     mounted () {
-      const id = this.$route.params.id;
-      this.$axios.get('getNewsDetail', {params: {id}}).then((res) => {
+      this.newsId = this.$route.params.id;
+      this.$axios.get('getNewsDetail', {params: {id: this.newsId}}).then((res) => {
         this.news = res.data.news;
-        this.reviewList = res.data.review
       })
     }
   }

@@ -1,10 +1,6 @@
 <template>
   <div>
-    <mt-swipe :auto="4000">
-      <mt-swipe-item v-for="(image, index) of swipeImgs" :key="index">
-        <img v-lazy="image" alt="豪车" class="swipe-image lazy-image">
-      </mt-swipe-item>
-    </mt-swipe>
+    <my-swipe></my-swipe>
     <div>
       <box-ul>
         <box-li v-for="(block, index) of quickBlocks" :key="index">
@@ -68,9 +64,6 @@ export default {
     }
   },
   created () {
-    this.$axios.get('getSwipeImages').then((res) => {
-      this.swipeImgs = res.data
-    })
     this.quickBlocks.forEach((box) => {
       box.image = require(`@/assets/images/${box.image}.png`)
     })
@@ -78,17 +71,6 @@ export default {
 }
 </script>
 <style scoped>
-  .mint-swipe {
-    height: 175px;
-  }
-  .mint-swipe-item {
-    background: #ccc;
-  }
-  .swipe-image {
-    width: 100%;
-    background: #ccc;
-    height: 175px;
-  }
   .box-img {
     width: 48px;
     height: 48px;

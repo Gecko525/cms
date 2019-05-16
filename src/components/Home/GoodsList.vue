@@ -1,27 +1,26 @@
 <template>
   <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :cancelable="false"
-               @top-status-change="handleTopChange" :auto-fill="false" ref="loadMore">
+               @top-status-change="handleTopChange" :auto-fill="false" :bottom-all-loaded="allGoods" ref="loadMore">
     <ul>
-      <li v-for="item in goodsList" class="goods">
-        <div>
-          <div class="goods-img">
-            <img :src="item.img">
+      <li v-for="(item,index) in goodsList" class="goods" :key="index">
+        <router-link :to="{name: 'home.goods.detail', params: {id: index}}">
+          <div>
+            <div class="goods-img">
+              <img :src="item.img">
+            </div>
+            <div class="goods-desc">
+              <p class="goods-desc-title">{{item.title}}</p>
+              <p class="goods-desc-price">￥ {{item.price}}</p>
+              <p class="goods-desc-old-price">￥ {{item.oldPrice}}</p>
+            </div>
           </div>
-          <div class="goods-desc">
-            <p class="goods-desc-title">{{item.title}}</p>
-            <p class="goods-desc-price">￥ {{item.price}}</p>
-            <p class="goods-desc-old-price">￥ {{item.oldPrice}}</p>
-          </div>
-        </div>
+        </router-link>
       </li>
     </ul>
-
+    <page-bottom v-show="allGoods"></page-bottom>
     <div slot="top" class="mint-loadmore-top">
       <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }">↓</span>
       <span v-show="topStatus === 'loading'">Loading...</span>
-    </div>
-    <div slot="bottom">
-      <page-bottom v-show="allGoods"></page-bottom>
     </div>
   </mt-loadmore>
 </template>
@@ -113,5 +112,9 @@
     font-size: 12px;
     text-decoration: line-through;
     padding-left: 10px;
+  }
+  .mint-loadmore ul {
+    clear: both;
+    overflow: hidden;
   }
 </style>

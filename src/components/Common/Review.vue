@@ -6,7 +6,7 @@
     <p>所有评论</p>
     <hr>
     <ul>
-      <li v-for="item of reviews">
+      <li v-for="item of reviewList">
         <div class="card-reviews">
           <div class="top">
             <span class="user">{{item.user}}</span>
@@ -22,11 +22,17 @@
 <script>
   export default {
     name: 'v-review',
-    props: ['reviews'],
+    props: ['id'],
     data () {
       return {
-        reviewText: ''
+        reviewText: '',
+        reviewList: []
       }
+    },
+    mounted() {
+      this.$axios.get('getNewsDetail', {params: {id: this.id}}).then((res) => {
+        this.reviewList = res.data.review
+      })
     },
     methods: {
       pushReview () {
@@ -38,7 +44,7 @@
           };
           this.$axios.post('comment', review).then((res) => {
             if (res.data === 'ok') {
-              this.reviews.unshift(review);
+              this.reviewList.unshift(review);
               this.reviewText = '';
             }
           }).catch((err) => {

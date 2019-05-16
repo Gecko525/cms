@@ -8,6 +8,7 @@ import News from '@/components/Home/News'
 import NewsDetail from '@/components/Home/NewsDetail'
 import CarPhoto from '@/components/Home/CarPhoto'
 import GoodsList from '@/components/Home/GoodsList'
+import GoodsDetail from '@/components/Home/GoodsDetail'
 
 Vue.use(Router)
 
@@ -82,6 +83,15 @@ export default new Router({
       meta: {
         title: '汽车商城'
       }
+    },
+    {
+      path: '/home/goods/detail',
+      name: 'home.goods.detail',
+      component: GoodsDetail,
+      meta: {
+        title: '汽车详情'
+      }
     }
+
   ]
 })

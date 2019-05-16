@@ -18,12 +18,15 @@ import ViewPicture from '@/components/Common/ViewPicture'
 import PageBottom from '@/components/Common/PageBottom'
 // 评论组件
 import Review from '@/components/Common/Review'
+// 轮播组件
+import MySwipe from '@/components/Common/MySwipe'
 
 Vue.component(BoxUL.name, BoxUL)
 Vue.component(BoxLI.name, BoxLI)
 Vue.component(ViewPicture.name, ViewPicture)
 Vue.component(PageBottom.name, PageBottom)
 Vue.component(Review.name, Review)
+Vue.component(MySwipe.name, MySwipe)
 
 // 配置拦截器在加载时显示loading
 Axios.interceptors.request.use(function (config) {
